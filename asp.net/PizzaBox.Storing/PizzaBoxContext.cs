@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using PizzaBox.Domain.Models;
-using PizzaBox.Domain.Factory;
 
 namespace PizzaBox.Storing
 {
@@ -18,7 +17,7 @@ namespace PizzaBox.Storing
         
         public DbSet<Topping> Toppings { get; set; }
         
-        public PizzaBoxContext(DbContextOptions<PizzaBoxContext> options):base(options){}
+        public PizzaBoxContext(DbContextOptions<PizzaBoxContext> options) : base(options){}
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -83,7 +82,7 @@ namespace PizzaBox.Storing
         {
             builder.Entity<Size>().HasData(new List<Size>()
             {
-                new Size("regular", 1d){ EntityID = 1 },
+                new Size("small", 1d){ EntityID = 1 },
                 new Size("medium", 2d){ EntityID = 2 },
                 new Size("large", 3d){ EntityID = 3 }
             });

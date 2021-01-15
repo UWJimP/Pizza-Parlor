@@ -6,7 +6,6 @@ namespace PizzaBox.Client.Models
 {
     public class OrderViewModel
     {
-
         public List<Store> Stores { get; set; }
         
         [Required]
