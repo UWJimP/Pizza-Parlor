@@ -7,12 +7,19 @@ namespace PizzaBox.Storing
 {
     public class PizzaBoxContext : DbContext
     {
+        
         public DbSet<Store> Stores { get; set; }
+        
         public DbSet<User> Users { get; set; }
+        
         public DbSet<Size> Sizes { get; set; }
+        
         public DbSet<Crust> Crusts { get; set; }
+        
         public DbSet<Topping> Toppings { get; set; }
+        
         public PizzaBoxContext(DbContextOptions<PizzaBoxContext> options):base(options){}
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Store>().HasKey(store => store.EntityID);
@@ -37,6 +44,7 @@ namespace PizzaBox.Storing
             SeedSizeData(builder);
             SeedCrustData(builder);
         }
+        
         private void SeedUserData(ModelBuilder builder)
         {
             builder.Entity<User>().HasData(new List<User>()
@@ -44,6 +52,7 @@ namespace PizzaBox.Storing
                 new User() { Name = "admin", EntityID = 1 }
             });
         }
+        
         private void SeedToppingData(ModelBuilder builder)
         {
             builder.Entity<Topping>().HasData(new List<Topping>()
@@ -59,6 +68,7 @@ namespace PizzaBox.Storing
                 new Topping("sauce", 2d) { EntityID = 9 }
             });
         }
+        
         private void SeedCrustData(ModelBuilder builder)
         {
             builder.Entity<Crust>().HasData(new List<Crust>
@@ -68,6 +78,7 @@ namespace PizzaBox.Storing
                 new Crust("pan", 1.75d){ EntityID = 3 }
             });
         }
+        
         private void SeedSizeData(ModelBuilder builder)
         {
             builder.Entity<Size>().HasData(new List<Size>()
@@ -77,6 +88,7 @@ namespace PizzaBox.Storing
                 new Size("large", 3d){ EntityID = 3 }
             });
         }
+        
         private void SeedStoreData(ModelBuilder builder)
         {
             builder.Entity<Store>().HasData(new List<Store>()

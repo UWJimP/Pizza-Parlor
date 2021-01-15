@@ -9,15 +9,18 @@ namespace PizzaBox.Storing.Repository
 {
     internal class StoreRepository : IStoreRepository
     {
+        
         private readonly PizzaBoxContext _db;
 /*         public StoreRepository(DbContextOptions<PizzaBoxContext> options)
         {
             _db = new PizzaBoxContext(options);
         } */
+        
         public StoreRepository(PizzaBoxContext context)
         {
             _db = context;
         }
+        
         public IEnumerable<Order> GetUserOrders(User user)
         {
             var query = _db.Stores
@@ -33,6 +36,7 @@ namespace PizzaBox.Storing.Repository
             .FirstOrDefault<Store>(s => s.EntityID == user.SelectedStore.EntityID);
             return query.Orders;
         }
+        
         public IEnumerable<Order> GetOrdersByStore(Store store)
         {
             var query = _db.Stores
@@ -48,6 +52,7 @@ namespace PizzaBox.Storing.Repository
             .FirstOrDefault<Store>(s => s.EntityID == store.EntityID);
             return query.Orders;
         }
+        
         public IEnumerable<Order> ReadStoreOrdersByUser(Store store, User user)
         {
             var query = _db.Stores
@@ -66,6 +71,7 @@ namespace PizzaBox.Storing.Repository
             .FirstOrDefault<Store>(s => s.EntityID == store.EntityID);
             return query.Orders;
         }
+        
         public IEnumerable<Order> GetOrderByDateRange(Store store, DateTime startDate, int days)
         {
             var endDate = startDate.Date.AddDays(days);

@@ -6,8 +6,11 @@ namespace PizzaBox.Domain.Models
 
     public class Store : AEntity
     {
+        
         public string Name { get; set; }
+        
         public virtual List<Order> Orders { get; set;}
+        
         public Store()
         {
             if(Orders == null)
@@ -15,6 +18,7 @@ namespace PizzaBox.Domain.Models
                 Orders = new List<Order>();
             }
         }
+        
         public bool DeleteOrder(Order order)
         {
             try {

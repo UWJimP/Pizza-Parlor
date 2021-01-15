@@ -5,7 +5,9 @@ namespace PizzaBox.Domain.Factory
 {
     public class APizzaPartFactory
     {
+        
         private APizzaPartFactory(){}
+        
         public static Size MakeSize(string size)
         {
             switch(size.ToLower())
@@ -18,6 +20,7 @@ namespace PizzaBox.Domain.Factory
                     return new Size("small", 1d);
             }
         }
+        
         public static Crust MakeCrust(string crust)
         {
             switch(crust.ToLower())
@@ -30,6 +33,7 @@ namespace PizzaBox.Domain.Factory
                     return new Crust("regular", 1d);
             }
         }
+        
         public static Topping MakeTopping(string topping)
         {
             switch(topping.ToLower())
@@ -54,6 +58,7 @@ namespace PizzaBox.Domain.Factory
                     return new Topping("cheese", 1d);
             }
         }
+        
         public static List<Topping> GetToppings()
         {
             return new List<Topping>()

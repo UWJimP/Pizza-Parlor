@@ -6,10 +6,15 @@ namespace PizzaBox.Domain.Models
 {
     public class Pizza : AEntity
     {
+        
         public Crust Crust { get; set; }
+        
         public Size Size { get; set; }
+        
         public string Name { get; set; }
+        
         public virtual List<Topping> Toppings { get; set; }
+        
         public Pizza()
         {
             if(Toppings == null)
@@ -17,6 +22,7 @@ namespace PizzaBox.Domain.Models
                 DefaultToppings();
             }
         }
+        
         public double GetTotalCost()
         {
             double total = 1d; //Base price of pizza without anything.
@@ -34,6 +40,7 @@ namespace PizzaBox.Domain.Models
             }
             return total;
         }
+        
         public bool AddTopping(Topping topping)
         {
             if(Toppings == null)
@@ -47,10 +54,12 @@ namespace PizzaBox.Domain.Models
             }
             return false;
         }
+        
         private void DefaultToppings()
         {
             Toppings = new List<Topping>();
         }
+        
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder($"{Name} pizza: ");

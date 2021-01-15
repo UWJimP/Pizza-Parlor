@@ -5,11 +5,14 @@ namespace PizzaBox.Domain.Factory
 {
     public class PizzaFactory
     {
+        
         private static readonly List<string> _pizzas = new List<string>()
         {
             "cheese", "pepperoni", "combo", "hawaiian"
         };
+        
         private PizzaFactory(){}
+        
         public static Pizza MakePizza(string pizza)
         {
             var madePizza = new Pizza();
@@ -34,6 +37,7 @@ namespace PizzaBox.Domain.Factory
                     return madePizza;
             }
         }
+        
         public static List<string> GetAllPizzaStrings()
         {
             return _pizzas;

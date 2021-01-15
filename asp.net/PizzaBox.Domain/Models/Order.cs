@@ -7,15 +7,21 @@ namespace PizzaBox.Domain.Models
 {
     public class Order : AEntity
     {
+        
         public long StoreEntityID { get; set; }
+        
         public long UserEntityID { get; set; }
+        
         public DateTime Date { get; set; }
+        
         public List<Pizza> Pizzas { get; set; }
+        
         public Order()
         {
             Date = DateTime.Now;
             Pizzas = new List<Pizza>();
         }
+        
         public bool AddPizza(Pizza pizza)
         {
             if(pizza != null && pizza.GetTotalCost() + GetTotalAmount() <= 250d && Pizzas.Count < 50)
@@ -25,6 +31,7 @@ namespace PizzaBox.Domain.Models
             }
             return false;
         }
+        
         public void RemovePizza(int index)
         {
             if(index >= 0 && index < Pizzas.Count())
@@ -32,6 +39,7 @@ namespace PizzaBox.Domain.Models
                 Pizzas.RemoveAt(index);
             }
         }
+        
         public double GetTotalAmount()
         {
             double cost = 0;
@@ -45,6 +53,7 @@ namespace PizzaBox.Domain.Models
             }
             return cost;
         }
+        
         public override string ToString()
         {
             return $"{Date}: pizzas: {Pizzas.Count()}";
