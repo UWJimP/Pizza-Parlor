@@ -1,0 +1,12 @@
+@model PizzaBox.Client.Models.CustomerViewModel
+
+@{
+  ViewBag.Title = "Customer - Home";
+  Layout = "_CustomLayout";
+}
+
+<section>
+  @Model.Name
+</section>
+
+@Html.Partial("Order", Model.Order)
