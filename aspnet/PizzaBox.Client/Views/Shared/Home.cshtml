@@ -1,12 +1,12 @@
 @model PizzaBox.Client.Models.CustomerViewModel
 
 @{
-  ViewBag.Title = "Customer - Order";
+  ViewBag.Title = "Customer - Main Menu";
   Layout = "_CustomLayout";
 }
-
 <section>
-  @Model.Name
+  <h1>Welcome, @Model.Name</h1>
 </section>
 
-@Html.Partial("Order", Model.Order)
+@* @await Html.PartialAsync("Order", Model.Order) *@
+@await Html.PartialAsync("MainMenu", Model)

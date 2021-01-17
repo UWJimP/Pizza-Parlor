@@ -9,7 +9,7 @@ using PizzaBox.Storing.Interfaces;
 
 namespace PizzaBox.Storing.Repository
 {
-    public class UnitOfWork : IRepository, IStoreRepository
+    public class UnitOfWork : IRepository, IStoreRepository, IUserRepository
     {
         
         private readonly PizzaBoxContext _context;
@@ -17,12 +17,15 @@ namespace PizzaBox.Storing.Repository
         private readonly StoreRepository _storeRepo;
         
         private readonly PizzaBoxRepository _pizzaBoxRepo;
+
+        private readonly UserRepository _userRepo;
         
         public UnitOfWork(DbContextOptions<PizzaBoxContext> options)
         {
             _context = new PizzaBoxContext(options);
             _storeRepo = new StoreRepository(_context);
             _pizzaBoxRepo = new PizzaBoxRepository(_context);
+            _userRepo = new UserRepository(_context);
         }
         
         public void Add<T>(T item) where T : AEntity
@@ -54,7 +57,12 @@ namespace PizzaBox.Storing.Repository
         {
             return _storeRepo.GetOrdersByStore(store);
         }
-        
+
+        public User GetUserByName(string name)
+        {
+            return _userRepo.GetUserByName(name);
+        }
+
         public IEnumerable<Order> GetUserOrders(User user)
         {
             return _storeRepo.GetUserOrders(user);

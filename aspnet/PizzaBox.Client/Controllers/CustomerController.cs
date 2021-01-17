@@ -19,14 +19,28 @@ namespace PizzaBox.Client.Controllers
         [HttpGet]
         public IActionResult Home(CustomerViewModel model)
         {
-            var customer = new CustomerViewModel();
+            if(model == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
+            model.user = _context.GetUserByName(model.Name);
+            if(model.user == null)
+            {
+                var user = new User()
+                {
+                    Name = model.Name
+                };
+                _context.Add<User>(user);
+                _context.SaveChanges();
+            }
 
-            customer.Order = new OrderViewModel()
+            model.Order = new OrderViewModel()
             {
                 Stores = _context.GetAll<Store>().ToList()
             };
 
-            return View("Home", customer);
+            return View("Home", model);
         }
     }
 }
