@@ -8,7 +8,7 @@ namespace PizzaBox.Client.Models
     {
         public List<Store> Stores { get; set; }
         
-        [Required]
+        //[Required]
         public string Store { get; set; }
     }
 }

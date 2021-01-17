@@ -1,0 +1,43 @@
+@model PizzaBox.Client.Models.CustomerViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_CustomLayout";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <div class="text-center">
+                        <h1 class="display-4">PizzaBox App</h1>
+                        <p class="lead">This amazing app will let you order pizza.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <img src="https://www.hungryhowies.com/sites/default/files/styles/menu_item_280x175/public/images/menu-items/thumbnails/buildyourownpizza_0.png?itok=fgzFck86"
+                class="img-fluid"
+                alt="Pizza image"
+            >
+            <form
+                asp-action="login"
+                asp-controller="home"
+                asp-antiforgery="true"
+                method="POST"
+            >
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                    <input
+                        class="form-control"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default"
+                        name="name"
+                    >
+                    <button type="submit" class="btn btn-secondary btn-lg">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

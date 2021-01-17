@@ -47,7 +47,7 @@ namespace PizzaBox.Client.Repository
         {
             return _db.Set<T>().ToList();
         }
-        
+
         public void SaveChanges()
         {
             _db.SaveChanges();

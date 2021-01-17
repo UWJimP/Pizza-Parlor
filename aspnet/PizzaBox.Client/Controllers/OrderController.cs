@@ -5,6 +5,7 @@ using PizzaBox.Storing.Repository;
 
 namespace PizzaBox.Client.Controllers
 {
+    [Route("[controller]")]
     public class OrderController : Controller
     {
         private readonly UnitOfWork _context;

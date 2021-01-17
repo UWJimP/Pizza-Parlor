@@ -17,7 +17,7 @@ namespace PizzaBox.Client.Controllers
         }
 
         [HttpGet]
-        public IActionResult Home()
+        public IActionResult Home(CustomerViewModel model)
         {
             var customer = new CustomerViewModel();
 
