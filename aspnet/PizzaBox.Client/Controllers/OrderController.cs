@@ -62,16 +62,34 @@ namespace PizzaBox.Client.Controllers
 
             model = TempData.Get<CustomerViewModel>("Customer");
             model.Pizza.SetToppings();
-            model.Pizza.Pizzas.Add(pizza);
+            //model.Pizza.Pizzas.Add(pizza);
+            model.Order.Pizzas.Add(pizza);
 
             return View("Order", model);
         }
 
-        [HttpPost]
+        [HttpPost("/removepizza")]
         [ValidateAntiForgeryToken]
-        public IActionResult Post(OrderViewModel model)
+        public IActionResult RemovePizza(int value)
         {
-            if(ModelState.IsValid)
+            CustomerViewModel model = TempData.Get<CustomerViewModel>("Customer");
+            model.Pizza.SetToppings();
+            //model.Pizza.Pizzas.Add(pizza);
+            model.Order.Pizzas.RemoveAt(value);
+
+            return View("Order", model);
+        }
+
+        [HttpPost("/post")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Post(CustomerViewModel model, string button)
+        {
+            model = TempData.Get<CustomerViewModel>("Customer");
+            if(button == "cancel")
+            {
+                return RedirectToAction("Home", "Customer", model);
+            }
+            else if(button == "finish" && ModelState.IsValid)
             {
                 var order = new Order(){};
                 return View("OrderPlaced");

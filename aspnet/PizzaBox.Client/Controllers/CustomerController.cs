@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Client.Models;
+using PizzaBox.Client.PersistData;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storing.Repository;
 
@@ -25,10 +26,10 @@ namespace PizzaBox.Client.Controllers
             }
 
             //Check if the user is there. If not, make a new user.
-            model.User = _context.GetUserByName(model.Name);
-            if(model.User == null)
+            User user = _context.GetUserByName(model.Name);
+            if(user == null)
             {
-                var user = new User()
+                user = new User()
                 {
                     Name = model.Name
                 };
@@ -42,12 +43,10 @@ namespace PizzaBox.Client.Controllers
         [HttpGet("/menu")]
         public IActionResult Menu(string button)
         {
-            var name = TempData["Name"];
-            var model = new CustomerViewModel()
-            {
-              Name = (string)name,
-              User = _context.GetUserByName((string)name)
-            };
+            //var name = TempData["Name"];
+            var customer = TempData.Get<CustomerViewModel>("Customer");
+            var model = new CustomerViewModel();
+            model.Name = customer.Name;
             switch(button)
             {
                 case "order":

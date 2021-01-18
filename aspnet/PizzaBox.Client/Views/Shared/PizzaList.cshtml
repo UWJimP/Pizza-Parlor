@@ -1,16 +1,23 @@
 @model PizzaBox.Client.Models.CustomerViewModel
 
 <h2>Ordered Pizzas</h2>
-@foreach (var item in @Model.Pizza.Pizzas)
+<form asp-action="post" asp-controller="order" asp-antiforgery="true" method="POST">
+    <button type="submit" class="btn btn-primary" value="finish">Finish Order</button>
+    <button type="submit" class="btn btn-danger" value="cancel" name="button">Cancel Order</button>
+</form>
+@for(int i = 0; i < @Model.Order.Pizzas.Count; i++)
 {
     <div class="card">
         <div class="card-body">
-            <h5>Size: @item.Size.Name Crust: @item.Crust.Name</h5>
-            <h5>Toppings: @foreach (var topping in item.Toppings)
+            <h5>Size: @Model.Order.Pizzas[i].Size.Name Crust: @Model.Order.Pizzas[i].Crust.Name</h5>
+            <h5>Toppings: @foreach (var topping in @Model.Order.Pizzas[i].Toppings)
             {
                 @(@topping.Name + " ")
             }</h5>
-            <h5>Price: $@item.GetTotalCost().ToString("0.00")</h5>
+            <h5>Price: $@Model.Order.Pizzas[i].GetTotalCost().ToString("0.00")</h5>
         </div>
+        <form asp-action="removepizza" asp-controller="order" asp-antiforgery="true" method="POST">
+            <button type="submit" class="btn btn-danger m-2" value=@(i)>X</button>
+        </form>
     </div>
 }

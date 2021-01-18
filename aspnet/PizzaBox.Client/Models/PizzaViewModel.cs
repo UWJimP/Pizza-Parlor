@@ -12,7 +12,7 @@ namespace PizzaBox.Client.Models
 
         public List<SelectTopping> Toppings { get; set; }
 
-        public List<Pizza> Pizzas { get; set; }
+        //public List<Pizza> Pizzas { get; set; }
 
         public string Crust { get; set; }
 
@@ -20,7 +20,7 @@ namespace PizzaBox.Client.Models
 
         public PizzaViewModel()
         {
-            Pizzas = new List<Pizza>();
+            //Pizzas = new List<Pizza>();
             //SetToppings();
         }
 

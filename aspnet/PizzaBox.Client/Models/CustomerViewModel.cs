@@ -5,10 +5,11 @@ namespace PizzaBox.Client.Models
 {
     public class CustomerViewModel
     {
+        [Required]
         public string Name { get; set; }
 
-        [Required]
-        public User User { get; set; }
+        //[Required]
+        //public User User { get; set; }
         
         public OrderViewModel Order { get; set; }
 
