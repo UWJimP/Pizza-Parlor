@@ -1,13 +1,46 @@
 @model PizzaBox.Client.Models.CustomerViewModel
 
+@{
+  ViewBag.Title = "Customer - Main Menu";
+  Layout = "_CustomLayout";
+  TempData["Name"] = @Model.Name;
+}
+<section>
+  <h1>Welcome, @Model.Name</h1>
+</section>
+
 <div class="row">
-    <div class="col-12 m-2">
-        <button type="button" class="btn btn-primary">Place Order</button>
-    </div>
-    <div class="col-12 m-2">
-        <button type="button" class="btn btn-success">View History</button>
-    </div>
-    <div class="col-12 m-2">
-        <button type="button" class="btn btn-danger">Log out</button>
-    </div>
+    <form asp-controller="customer" asp-action="menu" method="GET">
+        <div class="col-12 m-2">
+            <button
+                type="submit" 
+                class="btn btn-primary"
+                asp-action="menu"
+                asp-controller="customer"
+                name="button"
+                value="order"
+            >Place Order</button>
+        </div>
+        <div class="col-12 m-2">
+            <button
+                type="submit" 
+                class="btn btn-success" 
+                asp-action="menu"
+                asp-controller="customer"
+                name="button"
+                value="history"
+            >View History</button>
+        </div>
+        <div class="col-12 m-2">
+            <button
+                type="submit"
+                class="btn btn-danger"
+                asp-action="menu"
+                asp-controller="customer"
+                asp
+                name="button"
+                value="quit"
+            >Log out</button>
+        </div>
+    </form>
 </div>

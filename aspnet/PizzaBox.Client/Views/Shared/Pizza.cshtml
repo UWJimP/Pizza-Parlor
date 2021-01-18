@@ -1,0 +1,49 @@
+@model PizzaBox.Client.Models.CustomerViewModel
+
+<form >
+    <div class="row">
+        <section>
+            <h4>
+                Select Crust
+            </h4>
+            @foreach (var item in @Model.Pizza.Crusts)
+            {
+                <div class="col-12">
+                    <input type="radio" asp-for="@Model.Pizza.Crust" value="@item">
+                    <label for="@item">@item</label>
+                </div>
+            }
+        </section>
+    </div>
+    <div class="row">
+        <section>
+            <h4>
+                Select Size
+            </h4>
+            @foreach (var item in @Model.Pizza.Sizes)
+            {
+                <div class="col-12">
+                    <input type="radio" asp-for="@Model.Pizza.Size" value="@item">
+                    <label for="@item">@item</label>
+                </div>
+            }
+        </section>
+    </div>
+    <div class="row">
+        <section>
+            <h4>
+                Select Topping(s)
+            </h4>
+            @for(int i = 0; i < @Model.Pizza.Toppings.Count; i++)
+            {
+                <div class="col-12 col-m-6">
+                    <input type="checkbox" asp-for="@Model.Pizza.Toppings[i].Selected">
+                    <label asp-for="@Model.Pizza.Toppings[i].Selected">@Model.Pizza.Toppings[i].Topping</label>
+                    <input type="hidden" asp-for="@Model.Pizza.Toppings[i].Topping.Name">
+                    <input type="hidden" asp-for="@Model.Pizza.Toppings[i].Topping.Price">
+                </div>
+            }
+        </section>
+    </div>
+    <button type="submit">Add Pizza</button>
+</form>

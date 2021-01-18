@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Client.Models;
 using PizzaBox.Domain.Models;
@@ -15,6 +16,25 @@ namespace PizzaBox.Client.Controllers
             _context = context;
         }
 
+        [HttpGet("/stores")]
+        public IActionResult Stores(CustomerViewModel model)
+        {
+            model.Order = new OrderViewModel()
+            {
+                Stores = _context.GetAll<Store>().ToList()
+            };
+            return View("Stores", model);
+        }
+
+        [HttpGet("/pizza")]
+        public IActionResult Pizza(CustomerViewModel model)
+        {
+            model.Pizza.Crusts = _context.GetAll<Crust>().ToList();
+            model.Pizza.Sizes = _context.GetAll<Size>().ToList();
+
+            return View("Order", model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Post(OrderViewModel model)
@@ -22,7 +42,6 @@ namespace PizzaBox.Client.Controllers
             if(ModelState.IsValid)
             {
                 var order = new Order(){};
-                //model.
                 return View("OrderPlaced");
             }
             return View("home", model);

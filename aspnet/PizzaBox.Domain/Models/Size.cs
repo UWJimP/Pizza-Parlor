@@ -11,7 +11,7 @@ namespace PizzaBox.Domain.Models
         
         public override string ToString()
         {
-            return $"{Name}";
+            return $"{Name}: ${Price.ToString("0.00")}";
         }
     }
 }

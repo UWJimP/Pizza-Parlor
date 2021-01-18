@@ -8,5 +8,10 @@ namespace PizzaBox.Domain.Models
         public Crust(){}
         
         public Crust(string name, double price) : base(name, price){}
+
+        public override string ToString()
+        {
+            return $"{Name}: ${Price.ToString("0.00")}";
+        }
     }
 }

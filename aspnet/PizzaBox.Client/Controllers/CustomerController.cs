@@ -16,16 +16,17 @@ namespace PizzaBox.Client.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("home/")]
         public IActionResult Home(CustomerViewModel model)
         {
             if(model == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            
-            model.user = _context.GetUserByName(model.Name);
-            if(model.user == null)
+
+            //Check if the user is there. If not, make a new user.
+            model.User = _context.GetUserByName(model.Name);
+            if(model.User == null)
             {
                 var user = new User()
                 {
@@ -35,12 +36,31 @@ namespace PizzaBox.Client.Controllers
                 _context.SaveChanges();
             }
 
-            model.Order = new OrderViewModel()
-            {
-                Stores = _context.GetAll<Store>().ToList()
-            };
+            return View("MainMenu", model);
+        }
 
-            return View("Home", model);
+        [HttpGet("/menu")]
+        public IActionResult Menu(string button)
+        {
+            var name = TempData["Name"];
+            var model = new CustomerViewModel()
+            {
+              Name = (string)name,
+              User = _context.GetUserByName((string)name)
+            };
+            switch(button)
+            {
+                case "order":
+                    model.Order = new OrderViewModel
+                    {
+                        Stores = _context.GetAll<Store>().ToList()
+                    };
+                    return RedirectToAction("Stores", "Order", model);
+                case "history":
+                    return View();
+                default:
+                    return RedirectToAction("Index", "Home");
+            }
         }
     }
 }
