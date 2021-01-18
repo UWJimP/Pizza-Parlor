@@ -32,8 +32,13 @@ namespace PizzaBox.Client.Controllers
         {
             var store = model.Order.Store;
             model = TempData.Get<CustomerViewModel>("Customer");
+            model.Pizza.Toppings = null;
+
+            //Set up pizza orders layout values
             model.Pizza.Crusts = _context.GetAll<Crust>().ToList();
             model.Pizza.Sizes = _context.GetAll<Size>().ToList();
+            model.Pizza.SetToppings();
+
             model.Order.Store = store;
 
             return View("Order", model);
@@ -56,6 +61,7 @@ namespace PizzaBox.Client.Controllers
             pizza.Size = _context.GetAPizzaPartByName<Size>(model.Pizza.Size);
 
             model = TempData.Get<CustomerViewModel>("Customer");
+            model.Pizza.SetToppings();
             model.Pizza.Pizzas.Add(pizza);
 
             return View("Order", model);

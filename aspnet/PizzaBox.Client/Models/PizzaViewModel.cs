@@ -10,7 +10,7 @@ namespace PizzaBox.Client.Models
 
         public List<Size> Sizes { get; set; }
 
-        public List<SelectTopping> Toppings { get; private set; }
+        public List<SelectTopping> Toppings { get; set; }
 
         public List<Pizza> Pizzas { get; set; }
 
@@ -20,15 +20,23 @@ namespace PizzaBox.Client.Models
 
         public PizzaViewModel()
         {
-            Toppings = new List<SelectTopping>();
-            foreach(var topping in APizzaPartFactory.GetToppings())
-            {
-                Toppings.Add(new SelectTopping(){
-                    Selected = false,
-                    Topping = topping
-                });
-            }
             Pizzas = new List<Pizza>();
+            //SetToppings();
+        }
+
+        public void SetToppings()
+        {
+            if(Toppings == null || Toppings.Count == 0)
+            {
+                Toppings = new List<SelectTopping>();
+                foreach(var topping in APizzaPartFactory.GetToppings())
+                {
+                    Toppings.Add(new SelectTopping(){
+                        Selected = false,
+                        Topping = topping
+                    });
+                }
+            }
         }
     }
     public class SelectTopping
