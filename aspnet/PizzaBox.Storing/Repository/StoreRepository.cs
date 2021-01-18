@@ -20,6 +20,11 @@ namespace PizzaBox.Storing.Repository
         {
             _db = context;
         }
+
+        public Store GetStoreByName(string name)
+        {
+            return _db.Set<Store>().FirstOrDefault(s => s.Name == name);
+        }
         
         public IEnumerable<Order> GetUserOrders(User user)
         {

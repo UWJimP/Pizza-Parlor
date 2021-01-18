@@ -22,7 +22,11 @@ namespace PizzaBox.Client.Controllers
         {
             if(model == null)
             {
-                return RedirectToAction("Index", "Home");
+                model = TempData.Get<CustomerViewModel>("Customer");
+                if(model == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
             //Check if the user is there. If not, make a new user.
@@ -43,7 +47,6 @@ namespace PizzaBox.Client.Controllers
         [HttpGet("/menu")]
         public IActionResult Menu(string button)
         {
-            //var name = TempData["Name"];
             var customer = TempData.Get<CustomerViewModel>("Customer");
             var model = new CustomerViewModel();
             model.Name = customer.Name;

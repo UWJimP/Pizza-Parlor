@@ -1,0 +1,13 @@
+@using PizzaBox.Client.PersistData
+@model PizzaBox.Client.Models.CustomerViewModel
+
+@{
+    ViewBag.Title = "Order Placed";
+    Layout = "_CustomLayout";
+    TempData.Put<CustomerViewModel>("Customer", @Model);
+}
+
+<h1>Order Placed!</h1>
+<form asp-action="done" asp-controller="order" method="GET">
+    <button type="submit" value="@Model.Name" name="button" class="btn btn-success">OK</button>
+</form>

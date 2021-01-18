@@ -7,6 +7,8 @@ namespace PizzaBox.Storing.Interfaces
     public interface IStoreRepository
     {
         
+        public Store GetStoreByName(string name);
+
         public IEnumerable<Order> GetUserOrders(User user);
         
         public IEnumerable<Order> GetOrdersByStore(Store store);

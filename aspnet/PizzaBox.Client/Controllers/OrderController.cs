@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Client.Models;
 using PizzaBox.Client.PersistData;
+using PizzaBox.Domain.Factory;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storing.Repository;
 
@@ -61,8 +63,10 @@ namespace PizzaBox.Client.Controllers
             pizza.Size = _context.GetAPizzaPartByName<Size>(model.Pizza.Size);
 
             model = TempData.Get<CustomerViewModel>("Customer");
+            model.Pizza = new PizzaViewModel();
+            model.Pizza.Crusts = _context.GetAll<Crust>().ToList();
+            model.Pizza.Sizes = _context.GetAll<Size>().ToList();
             model.Pizza.SetToppings();
-            //model.Pizza.Pizzas.Add(pizza);
             model.Order.Pizzas.Add(pizza);
 
             return View("Order", model);
@@ -74,7 +78,6 @@ namespace PizzaBox.Client.Controllers
         {
             CustomerViewModel model = TempData.Get<CustomerViewModel>("Customer");
             model.Pizza.SetToppings();
-            //model.Pizza.Pizzas.Add(pizza);
             model.Order.Pizzas.RemoveAt(value);
 
             return View("Order", model);
@@ -89,12 +92,40 @@ namespace PizzaBox.Client.Controllers
             {
                 return RedirectToAction("Home", "Customer", model);
             }
-            else if(button == "finish" && ModelState.IsValid)
+            else if(button == "finish")
             {
-                var order = new Order(){};
-                return View("OrderPlaced");
+                var store = _context.GetStoreByName(model.Order.Store);
+                var user = _context.GetUserByName(model.Name);
+                var order = new Order();
+                foreach(var pizza in model.Order.Pizzas)
+                {
+                    var madePizza = new Pizza();
+                    madePizza.Name = "custom";
+                    madePizza.Crust = _context.GetAPizzaPartByName<Crust>(pizza.Crust.Name);
+                    madePizza.Size = _context.GetAPizzaPartByName<Size>(pizza.Size.Name);
+                    madePizza.Toppings = new List<Topping>();
+                    foreach(var topping in pizza.Toppings)
+                    {
+                        madePizza.Toppings.Add(APizzaPartFactory.MakeTopping(topping.Name));
+                    }
+                }
+                store.Orders.Add(order);
+                user.Orders.Add(order);
+                _context.SaveChanges();
+                return View("OrderPlaced", model);
             }
             return View("home", model);
+        }
+
+        [HttpGet("/done")]
+        public IActionResult Done(string button)
+        {
+            var model = new CustomerViewModel();
+            model.Name = button;
+            model.Order = new OrderViewModel();
+            model.Pizza = new PizzaViewModel();
+
+            return RedirectToAction("Home", "Customer", model);
         }
     }
 }

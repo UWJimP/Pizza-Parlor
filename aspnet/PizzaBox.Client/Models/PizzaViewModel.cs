@@ -12,8 +12,6 @@ namespace PizzaBox.Client.Models
 
         public List<SelectTopping> Toppings { get; set; }
 
-        //public List<Pizza> Pizzas { get; set; }
-
         public string Crust { get; set; }
 
         public string Size { get; set; }

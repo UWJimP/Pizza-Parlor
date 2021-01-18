@@ -56,6 +56,11 @@ namespace PizzaBox.Storing.Repository
             return _pizzaRepo.GetAPizzaPartByName<T>(name);
         }
 
+        public Store GetStoreByName(string name)
+        {
+            return _storeRepo.GetStoreByName(name);
+        }
+
         public IEnumerable<Order> GetOrderByDateRange(Store store, DateTime startDate, int days)
         {
             return _storeRepo.GetOrderByDateRange(store, startDate, days);
