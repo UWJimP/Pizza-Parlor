@@ -5,13 +5,12 @@
 {
     <div class="card">
         <div class="card-body">
-            <h5>Size: @item.Size.Name</h5>
-            <h5>Crust: @item.Crust.Name</h5>
+            <h5>Size: @item.Size.Name Crust: @item.Crust.Name</h5>
             <h5>Toppings: @foreach (var topping in item.Toppings)
             {
-                @topping.Name
+                @topping.Name 
             }</h5>
-            <h5>Price: @item.GetTotalCost()</h5>
+            <h5>Price: $@item.GetTotalCost().ToString("0.00")</h5>
         </div>
     </div>
 }

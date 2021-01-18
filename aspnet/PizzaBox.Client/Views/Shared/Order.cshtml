@@ -1,8 +1,11 @@
+@using PizzaBox.Client.PersistData
 @model PizzaBox.Client.Models.CustomerViewModel
 
 @{
-  TempData["Name"] = @Model.Name;
-  TempData["Store"] = @Model.Order.Store;
+  //TempData["Name"] = @Model.Name;
+  //TempData["Store"] = @Model.Order.Store;
+  //TempDataExtension.Put<CustomerViewModel>(TempData,"", @Model);
+    TempData.Put<CustomerViewModel>("Customer", @Model);
 }
 
 <div class="row">

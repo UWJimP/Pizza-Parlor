@@ -1,7 +1,9 @@
+@using PizzaBox.Client.PersistData
 @model PizzaBox.Client.Models.CustomerViewModel
 
 @{
-  TempData["Name"] = @Model.Name;
+  //TempData["Name"] = @Model.Name;
+  TempData.Put<CustomerViewModel>("Customer", @Model);
 }
 
 <form asp-action="pizza" asp-controller="order" asp-antiforgery="true" method="GET">

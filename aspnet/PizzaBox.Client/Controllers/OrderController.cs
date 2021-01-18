@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Client.Models;
+using PizzaBox.Client.PersistData;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storing.Repository;
 
@@ -29,9 +30,11 @@ namespace PizzaBox.Client.Controllers
         [HttpGet("/pizza")]
         public IActionResult Pizza(CustomerViewModel model)
         {
-            model.Name = (string)TempData["Name"];
+            var store = model.Order.Store;
+            model = TempData.Get<CustomerViewModel>("Customer");
             model.Pizza.Crusts = _context.GetAll<Crust>().ToList();
             model.Pizza.Sizes = _context.GetAll<Size>().ToList();
+            model.Order.Store = store;
 
             return View("Order", model);
         }
@@ -40,13 +43,8 @@ namespace PizzaBox.Client.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddPizza(CustomerViewModel model)
         {
-            model.Name = (string)TempData["Name"];
-            model.Order.Store = (string)TempData["Store"];
-
             var pizza = new Pizza();
             pizza.Name = "custom";
-            pizza.Crust = _context.GetAPizzaPartByName<Crust>(model.Pizza.Crust);
-            pizza.Size = _context.GetAPizzaPartByName<Size>(model.Pizza.Size);
             foreach(var topping in model.Pizza.Toppings)
             {
                 if(topping.Selected)
@@ -54,9 +52,12 @@ namespace PizzaBox.Client.Controllers
                     pizza.AddTopping(topping.Topping);
                 }
             }
+            pizza.Crust = _context.GetAPizzaPartByName<Crust>(model.Pizza.Crust);
+            pizza.Size = _context.GetAPizzaPartByName<Size>(model.Pizza.Size);
+
+            model = TempData.Get<CustomerViewModel>("Customer");
             model.Pizza.Pizzas.Add(pizza);
-            model.Pizza.Crusts = _context.GetAll<Crust>().ToList();
-            model.Pizza.Sizes = _context.GetAll<Size>().ToList();
+
             return View("Order", model);
         }
 

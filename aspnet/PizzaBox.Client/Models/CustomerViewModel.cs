@@ -16,8 +16,14 @@ namespace PizzaBox.Client.Models
 
         public CustomerViewModel()
         {
-            Order = new OrderViewModel();
-            Pizza = new PizzaViewModel();
+            if(Order == null)
+            {
+                Order = new OrderViewModel();
+            }
+            if(Pizza == null)
+            {
+                Pizza = new PizzaViewModel();
+            }
         }
     }
 }
