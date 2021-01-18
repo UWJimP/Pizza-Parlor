@@ -29,9 +29,34 @@ namespace PizzaBox.Client.Controllers
         [HttpGet("/pizza")]
         public IActionResult Pizza(CustomerViewModel model)
         {
+            model.Name = (string)TempData["Name"];
             model.Pizza.Crusts = _context.GetAll<Crust>().ToList();
             model.Pizza.Sizes = _context.GetAll<Size>().ToList();
 
+            return View("Order", model);
+        }
+
+        [HttpPost("/addpizza")]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddPizza(CustomerViewModel model)
+        {
+            model.Name = (string)TempData["Name"];
+            model.Order.Store = (string)TempData["Store"];
+
+            var pizza = new Pizza();
+            pizza.Name = "custom";
+            pizza.Crust = _context.GetAPizzaPartByName<Crust>(model.Pizza.Crust);
+            pizza.Size = _context.GetAPizzaPartByName<Size>(model.Pizza.Size);
+            foreach(var topping in model.Pizza.Toppings)
+            {
+                if(topping.Selected)
+                {
+                    pizza.AddTopping(topping.Topping);
+                }
+            }
+            model.Pizza.Pizzas.Add(pizza);
+            model.Pizza.Crusts = _context.GetAll<Crust>().ToList();
+            model.Pizza.Sizes = _context.GetAll<Size>().ToList();
             return View("Order", model);
         }
 

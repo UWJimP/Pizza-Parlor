@@ -1,3 +1,17 @@
 @model PizzaBox.Client.Models.CustomerViewModel
 
 <h2>Ordered Pizzas</h2>
+@foreach (var item in @Model.Pizza.Pizzas)
+{
+    <div class="card">
+        <div class="card-body">
+            <h5>Size: @item.Size.Name</h5>
+            <h5>Crust: @item.Crust.Name</h5>
+            <h5>Toppings: @foreach (var topping in item.Toppings)
+            {
+                @topping.Name
+            }</h5>
+            <h5>Price: @item.GetTotalCost()</h5>
+        </div>
+    </div>
+}

@@ -9,7 +9,7 @@ using PizzaBox.Storing.Interfaces;
 
 namespace PizzaBox.Storing.Repository
 {
-    public class UnitOfWork : IRepository, IStoreRepository, IUserRepository
+    public class UnitOfWork : IRepository, IStoreRepository, IUserRepository, IPizzaRepository
     {
         
         private readonly PizzaBoxContext _context;
@@ -19,6 +19,8 @@ namespace PizzaBox.Storing.Repository
         private readonly PizzaBoxRepository _pizzaBoxRepo;
 
         private readonly UserRepository _userRepo;
+
+        private readonly PizzaRepository _pizzaRepo;
         
         public UnitOfWork(DbContextOptions<PizzaBoxContext> options)
         {
@@ -26,6 +28,7 @@ namespace PizzaBox.Storing.Repository
             _storeRepo = new StoreRepository(_context);
             _pizzaBoxRepo = new PizzaBoxRepository(_context);
             _userRepo = new UserRepository(_context);
+            _pizzaRepo = new PizzaRepository(_context);
         }
         
         public void Add<T>(T item) where T : AEntity
@@ -47,7 +50,12 @@ namespace PizzaBox.Storing.Repository
         {
             return _pizzaBoxRepo.GetAll<T>();
         }
-        
+
+        public T GetAPizzaPartByName<T>(string name) where T : APizzaPart
+        {
+            return _pizzaRepo.GetAPizzaPartByName<T>(name);
+        }
+
         public IEnumerable<Order> GetOrderByDateRange(Store store, DateTime startDate, int days)
         {
             return _storeRepo.GetOrderByDateRange(store, startDate, days);

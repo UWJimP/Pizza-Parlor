@@ -1,6 +1,7 @@
 @model PizzaBox.Client.Models.CustomerViewModel
 
-<form >
+<h2>Add Pizza</h2>
+<form asp-action="addpizza" asp-controller="order" asp-antiforgery="true" method="POST">
     <div class="row">
         <section>
             <h4>

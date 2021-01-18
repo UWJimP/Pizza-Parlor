@@ -1,5 +1,9 @@
 @model PizzaBox.Client.Models.CustomerViewModel
 
+@{
+  TempData["Name"] = @Model.Name;
+}
+
 <form asp-action="pizza" asp-controller="order" asp-antiforgery="true" method="GET">
   @foreach (var item in Model.Order.Stores)
   {

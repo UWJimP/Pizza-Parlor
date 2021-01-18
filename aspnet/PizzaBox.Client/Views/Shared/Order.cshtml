@@ -1,7 +1,18 @@
 @model PizzaBox.Client.Models.CustomerViewModel
 
+@{
+  TempData["Name"] = @Model.Name;
+  TempData["Store"] = @Model.Order.Store;
+}
+
 <div class="row">
-  <div class="col-6">
+  <style>
+    .vl {
+      border-right: 1px solid;
+      height: auto;
+    }
+  </style>
+  <div class="col-6 vl">
     @await Html.PartialAsync("Pizza", @Model)
   </div>
   <div class="col-6">
