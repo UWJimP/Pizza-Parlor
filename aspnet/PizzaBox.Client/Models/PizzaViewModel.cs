@@ -16,11 +16,7 @@ namespace PizzaBox.Client.Models
 
         public string Size { get; set; }
 
-        public PizzaViewModel()
-        {
-            //Pizzas = new List<Pizza>();
-            //SetToppings();
-        }
+        public PizzaViewModel(){}
 
         public void SetToppings()
         {

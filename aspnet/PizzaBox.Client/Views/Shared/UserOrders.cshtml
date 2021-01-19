@@ -18,6 +18,9 @@
         <button type="submit" class="btn btn-secondary btn-lg">Search</button>
     </div>
 </form>
+<form asp-action="adminhome" asp-controller="admin", asp-antiforgery="true" method="GET">
+    <button type="submit" class="btn btn-danger btn-lg">Back</button>
+</form>
 
 @{
     if(@Model == null)

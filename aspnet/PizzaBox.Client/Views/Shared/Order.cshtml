@@ -2,9 +2,6 @@
 @model PizzaBox.Client.Models.CustomerViewModel
 
 @{
-  //TempData["Name"] = @Model.Name;
-  //TempData["Store"] = @Model.Order.Store;
-  //TempDataExtension.Put<CustomerViewModel>(TempData,"", @Model);
     TempData.Put<CustomerViewModel>("Customer", @Model);
 }
 

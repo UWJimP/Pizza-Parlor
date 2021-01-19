@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Client.Models
 {

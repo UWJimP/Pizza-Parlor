@@ -37,7 +37,6 @@
             </h4>
             @for(int i = 0; i < @Model.Pizza.Toppings.Count; i++)
             {
-                //System.Console.WriteLine(i);
                 <div class="col-12 col-m-6">
                     <input type="checkbox" asp-for="@Model.Pizza.Toppings[i].Selected">
                     <label asp-for="@Model.Pizza.Toppings[i].Selected">@Model.Pizza.Toppings[i].Topping</label>
