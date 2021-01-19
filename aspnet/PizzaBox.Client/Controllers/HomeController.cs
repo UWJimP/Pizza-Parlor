@@ -27,8 +27,7 @@ namespace PizzaBox.Client.Controllers
             var trimName = name.Trim();
             if(trimName.ToLower() == "admin")
             {
-                //TODO: Implement Admin View here.
-                return View("Index"); 
+                return RedirectToAction("AdminHome", "Admin");
             }
             else if(string.IsNullOrEmpty(trimName))
             {

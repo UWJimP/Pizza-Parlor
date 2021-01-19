@@ -100,5 +100,10 @@ namespace PizzaBox.Storing.Repository
         {
             return _storeRepo.GetStoreByID(id);
         }
+
+        public IEnumerable<Order> GetOrdersByDateRange(DateTime startDate, int days)
+        {
+            return _storeRepo.GetOrdersByDateRange(startDate, days);
+        }
     }
 }

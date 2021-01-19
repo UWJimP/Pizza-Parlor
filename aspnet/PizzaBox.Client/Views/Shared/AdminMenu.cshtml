@@ -1,0 +1,37 @@
+@{
+  ViewBag.Title = "Admin - Main Menu";
+  Layout = "_CustomLayout";
+}
+
+<section>
+  <h1>Welcome, Admin</h1>
+</section>
+
+<div class="row">
+    <form asp-controller="admin" asp-action="adminmenu" method="GET">
+        <div class="col-12 m-2">
+            <button
+                type="submit" 
+                class="btn btn-primary"
+                name="button"
+                value="order"
+            >User Order History</button>
+        </div>
+        <div class="col-12 m-2">
+            <button
+                type="submit" 
+                class="btn btn-success" 
+                name="button"
+                value="revenue"
+            >Sales Revenue</button>
+        </div>
+        <div class="col-12 m-2">
+            <button
+                type="submit"
+                class="btn btn-danger"
+                name="button"
+                value="quit"
+            >Log out</button>
+        </div>
+    </form>
+</div>

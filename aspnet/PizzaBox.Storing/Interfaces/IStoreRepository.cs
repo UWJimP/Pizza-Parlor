@@ -18,5 +18,7 @@ namespace PizzaBox.Storing.Interfaces
         public IEnumerable<Order> ReadStoreOrdersByUser(Store store, User user);
         
         public IEnumerable<Order> GetOrderByDateRange(Store store, DateTime startDate, int days);
+
+        public IEnumerable<Order> GetOrdersByDateRange(DateTime startDate, int days);
     }
 }

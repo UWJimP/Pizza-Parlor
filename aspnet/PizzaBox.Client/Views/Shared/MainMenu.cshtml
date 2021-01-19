@@ -14,35 +14,13 @@
 <div class="row">
     <form asp-controller="customer" asp-action="menu" method="GET">
         <div class="col-12 m-2">
-            <button
-                type="submit" 
-                class="btn btn-primary"
-                asp-action="menu"
-                asp-controller="customer"
-                name="button"
-                value="order"
-            >Place Order</button>
+            <button type="submit" class="btn btn-primary" name="button" value="order">Place Order</button>
         </div>
         <div class="col-12 m-2">
-            <button
-                type="submit" 
-                class="btn btn-success" 
-                asp-action="menu"
-                asp-controller="customer"
-                name="button"
-                value="history"
-            >View History</button>
+            <button type="submit" class="btn btn-success" name="button" value="history">View History</button>
         </div>
         <div class="col-12 m-2">
-            <button
-                type="submit"
-                class="btn btn-danger"
-                asp-action="menu"
-                asp-controller="customer"
-                asp
-                name="button"
-                value="quit"
-            >Log out</button>
+            <button type="submit" class="btn btn-danger" name="button" value="quit">Log out</button>
         </div>
     </form>
 </div>

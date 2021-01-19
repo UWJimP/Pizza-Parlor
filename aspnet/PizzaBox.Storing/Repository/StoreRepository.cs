@@ -97,5 +97,21 @@ namespace PizzaBox.Storing.Repository
             .FirstOrDefault<Store>(s => s.EntityID == store.EntityID).Orders;
             return query;
         }
+
+        public IEnumerable<Order> GetOrdersByDateRange(DateTime startDate, int days)
+        {
+            var endDate = startDate.Date.AddDays(-1 * days);
+            
+            var query = _db.Set<Order>()
+            .Include(o => o.Pizzas)
+                .ThenInclude(p => p.Size)
+            .Include(o => o.Pizzas)
+                .ThenInclude(p => p.Crust)
+            .Include(o => o.Pizzas)
+                .ThenInclude(p => p.Toppings)
+            .Where(o => o.Date <= startDate && o.Date >= endDate);
+
+            return query;
+        }
     }
 }

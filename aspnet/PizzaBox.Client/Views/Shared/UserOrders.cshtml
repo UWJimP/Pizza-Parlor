@@ -1,0 +1,62 @@
+@model PizzaBox.Client.Models.AdminHistoryViewModel
+
+@{
+  ViewBag.Title = "Admin - User Orders";
+  Layout = "_CustomLayout";
+}
+
+<form asp-action="searchuser" asp-controller="admin" asp-antiforgery="true" method="POST">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+        <input
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+            name="name"
+            required
+        >
+        <button type="submit" class="btn btn-secondary btn-lg">Search</button>
+    </div>
+</form>
+
+@{
+    if(@Model == null)
+    {
+        <h5>Sorry, user not found</h5>
+    }
+    else if(@Model.Customer != "")
+    {
+        <h5>@Model.Orders.Count Result(s) Found for @Model.Customer</h5>
+        @foreach (var item in @Model.Orders)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5>Date: @item.Order.Date</h5>
+                    <h5>Pizza Amount: @item.Order.Pizzas.Count</h5>
+                    <h5>Total: @item.Order.GetTotalAmount().ToString("0.00")</h5>
+                    @{
+                        if(@item.Store != null)
+                        {
+                            <h5>Store: @item.Store</h5>
+                        }
+                    }
+                    <div class="row">
+                        @foreach (var pizza in @item.Order.Pizzas)
+                        {
+                            <div class="card col-4">
+                                <div class="card-body">
+                                    <h6>Size: @pizza.Size.Name Crust: @pizza.Crust.Name</h6>
+                                    <h6>Toppings: @foreach (var topping in @pizza.Toppings)
+                                    {
+                                        @(@topping.Name + " ")
+                                    }</h6>
+                                    <h6>Price: $@pizza.GetTotalCost().ToString("0.00")</h6>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

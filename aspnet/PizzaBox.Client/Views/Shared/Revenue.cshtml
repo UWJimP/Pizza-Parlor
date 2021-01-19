@@ -1,0 +1,72 @@
+@model PizzaBox.Client.Models.RevenueViewModel
+
+@{
+    ViewBag.Title = "Admin - User Orders";
+    Layout = "_CustomLayout";
+}
+
+<form asp-action="searchrevenue" asp-controller="admin" asp-antiforgery="true" method="POST">
+    <div class="row">
+        <div class="col-3">
+            <button type="submit" name="days" value=7 class="btn btn-primary">
+                Revenue within the Past Week
+            </button>
+        </div>
+        <div class="col-3">
+            <button type="submit" name="days" value=30 class="btn btn-secondary">
+                Revenue within the Past Month
+            </button>
+        </div>
+        <div class="col-3">
+            <button type="submit" name="days" value=-1 class="btn btn-danger">
+                Return
+            </button>
+        </div>
+    </div>
+</form>
+
+@{
+    if(@Model != null)
+    {
+        <h5>@Model.History.Count Result(s) Found</h5>
+        <h5>Pizza(s) Sold: @Model.PizzaAmount</h5>
+        <h5>Sales Revenue: $@Model.SalesTotal.ToString("0.00")</h5>
+        @foreach (var item in @Model.History)
+        {
+            <div class="card">
+                <div class="card-body">
+                    @{
+                        if(@item.Customer != null)
+                        {
+                            <h5>Customer: @item.Customer</h5>
+                        }
+                    }
+                    <h5>Date: @item.Order.Date</h5>
+                    <h5>Pizza Amount: @item.Order.Pizzas.Count</h5>
+                    <h5>Total: $@item.Order.GetTotalAmount().ToString("0.00")</h5>
+                    @{
+                        if(@item.Store != null)
+                        {
+                            <h5>Store: @item.Store</h5>
+                        }
+                    }
+                    <div class="row">
+                        @foreach (var pizza in @item.Order.Pizzas)
+                        {
+                            <div class="card col-4">
+                                <div class="card-body">
+                                    <h6>Size: @pizza.Size.Name Crust: @pizza.Crust.Name</h6>
+                                    <h6>Toppings: @foreach (var topping in @pizza.Toppings)
+                                    {
+                                        @(@topping.Name + " ")
+                                    }</h6>
+                                    <h6>Price: $@pizza.GetTotalCost().ToString("0.00")</h6>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
