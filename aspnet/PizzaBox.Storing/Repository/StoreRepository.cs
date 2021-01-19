@@ -11,10 +11,6 @@ namespace PizzaBox.Storing.Repository
     {
         
         private readonly PizzaBoxContext _db;
-/*         public StoreRepository(DbContextOptions<PizzaBoxContext> options)
-        {
-            _db = new PizzaBoxContext(options);
-        } */
         
         public StoreRepository(PizzaBoxContext context)
         {
@@ -25,26 +21,31 @@ namespace PizzaBox.Storing.Repository
         {
             return _db.Set<Store>().FirstOrDefault(s => s.Name == name);
         }
+
+        public Store GetStoreByID(long id)
+        {
+            return _db.Set<Store>().FirstOrDefault(s => s.EntityID == id);
+        }
         
         public IEnumerable<Order> GetUserOrders(User user)
         {
-            var query = _db.Stores
-            .Include(store => store.Orders)
+            var query = _db.Set<User>()
+            .Include(u => u.Orders)
                 .ThenInclude(order => order.Pizzas)
                     .ThenInclude(pizza => pizza.Crust)
-            .Include(store => store.Orders)
+            .Include(u => u.Orders)
                 .ThenInclude(order => order.Pizzas)
                     .ThenInclude(pizza => pizza.Size)
-            .Include(store => store.Orders)
+            .Include(u => u.Orders)
                 .ThenInclude(order => order.Pizzas)
                     .ThenInclude(pizza => pizza.Toppings)
-            .FirstOrDefault<Store>(s => s.EntityID == user.SelectedStore.EntityID);
+            .FirstOrDefault<User>(u => u.EntityID == user.EntityID);
             return query.Orders;
         }
         
         public IEnumerable<Order> GetOrdersByStore(Store store)
         {
-            var query = _db.Stores
+            var query = _db.Set<Store>()
             .Include(store => store.Orders)
                 .ThenInclude(order => order.Pizzas)
                     .ThenInclude(pizza => pizza.Crust)
@@ -60,7 +61,7 @@ namespace PizzaBox.Storing.Repository
         
         public IEnumerable<Order> ReadStoreOrdersByUser(Store store, User user)
         {
-            var query = _db.Stores
+            var query = _db.Set<Store>()
             .Include(store => store.Orders
                 .Where(o => o.UserEntityID == user.EntityID))
                 .ThenInclude(order => order.Pizzas)
@@ -80,7 +81,7 @@ namespace PizzaBox.Storing.Repository
         public IEnumerable<Order> GetOrderByDateRange(Store store, DateTime startDate, int days)
         {
             var endDate = startDate.Date.AddDays(days);
-            var query = _db.Stores
+            var query = _db.Set<Store>()
             .Include(s => s.Orders
                 .Where(o => o.Date >= startDate && o.Date <= endDate))
                 .ThenInclude(o => o.Pizzas)

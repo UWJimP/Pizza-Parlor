@@ -33,7 +33,7 @@ namespace PizzaBox.Client.Repository
             _db.Set<T>().Remove(item);
         }
         
-        public T Get<T>(int id) where T : AEntity
+        public T Get<T>(long id) where T : AEntity
         {
             return _db.Set<T>().Find(id);
         }

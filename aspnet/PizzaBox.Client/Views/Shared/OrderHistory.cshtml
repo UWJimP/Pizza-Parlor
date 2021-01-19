@@ -1,0 +1,46 @@
+@using PizzaBox.Client.PersistData
+@model PizzaBox.Client.Models.CustomerViewModel
+
+@{
+    ViewBag.Title = "Order History";
+    TempData.Put<CustomerViewModel>("Customer", @Model);
+}
+
+@for(int i = 0; i < @Model.History.Count; i++)
+{
+    <div class="card">
+        <div class="card-body">
+            @{
+                if(@Model.History[i].Customer != null)
+                {
+                    <h5>Customer: @Model.History[i].Customer</h5>
+                }
+            }
+            <h5>Date: @Model.History[i].Order.Date</h5>
+            <h5>Pizza Amount: @Model.History[i].Order.Pizzas.Count</h5>
+            <h5>Total: @Model.History[i].Order.GetTotalAmount().ToString("0.00")</h5>
+            @{
+                if(@Model.History[i].Store != null)
+                {
+                    <h5>Store: @Model.History[i].Store</h5>
+                }
+            }
+            <p></p>
+            <div class="row">
+                @foreach (var item in @Model.History[i].Order.Pizzas)
+                {
+                    <div class="card col-4">
+                        <div class="card-body">
+                            <h6>Size: @item.Size.Name Crust: @item.Crust.Name</h6>
+                            <h6>Toppings: @foreach (var topping in @item.Toppings)
+                            {
+                                @(@topping.Name + " ")
+                            }</h6>
+                            <h6>Price: $@item.GetTotalCost().ToString("0.00")</h6>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

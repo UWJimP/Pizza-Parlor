@@ -108,6 +108,8 @@ namespace PizzaBox.Client.Controllers
                     {
                         madePizza.Toppings.Add(APizzaPartFactory.MakeTopping(topping.Name));
                     }
+
+                    order.AddPizza(madePizza);
                 }
                 store.Orders.Add(order);
                 user.Orders.Add(order);

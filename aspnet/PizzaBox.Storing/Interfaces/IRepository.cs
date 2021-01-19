@@ -12,7 +12,7 @@ namespace PizzaBox.Storing.Interfaces
         
         public void Remove<T>(T item) where T : AEntity;
         
-        public T Get<T>(int id) where T : AEntity;
+        public T Get<T>(long id) where T : AEntity;
         
         public IEnumerable<AEntity> Find<T>(Expression<Func<AEntity, bool>> predicate) where T : AEntity;
         

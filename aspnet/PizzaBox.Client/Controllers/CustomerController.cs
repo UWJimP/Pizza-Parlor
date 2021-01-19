@@ -59,7 +59,7 @@ namespace PizzaBox.Client.Controllers
                     };
                     return RedirectToAction("Stores", "Order", model);
                 case "history":
-                    return View();
+                    return RedirectToAction("UserHistory", "History", model);
                 default:
                     return RedirectToAction("Index", "Home");
             }

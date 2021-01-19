@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using PizzaBox.Domain.Models;
 
@@ -7,13 +8,12 @@ namespace PizzaBox.Client.Models
     {
         [Required]
         public string Name { get; set; }
-
-        //[Required]
-        //public User User { get; set; }
         
         public OrderViewModel Order { get; set; }
 
         public PizzaViewModel Pizza { get; set; }
+
+        public List<HistoryViewModel> History { get; set; }
 
         public CustomerViewModel()
         {
@@ -25,6 +25,7 @@ namespace PizzaBox.Client.Models
             {
                 Pizza = new PizzaViewModel();
             }
+            History = new List<HistoryViewModel>();
         }
     }
 }

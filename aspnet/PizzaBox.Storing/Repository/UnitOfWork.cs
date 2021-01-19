@@ -41,7 +41,7 @@ namespace PizzaBox.Storing.Repository
             return _pizzaBoxRepo.Find<T>(predicate);
         }
         
-        public T Get<T>(int id) where T : AEntity
+        public T Get<T>(long id) where T : AEntity
         {
             return _pizzaBoxRepo.Get<T>(id);
         }
@@ -94,6 +94,11 @@ namespace PizzaBox.Storing.Repository
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public Store GetStoreByID(long id)
+        {
+            return _storeRepo.GetStoreByID(id);
         }
     }
 }

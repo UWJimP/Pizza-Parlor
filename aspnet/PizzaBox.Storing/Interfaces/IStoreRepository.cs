@@ -9,6 +9,8 @@ namespace PizzaBox.Storing.Interfaces
         
         public Store GetStoreByName(string name);
 
+        public Store GetStoreByID(long id);
+
         public IEnumerable<Order> GetUserOrders(User user);
         
         public IEnumerable<Order> GetOrdersByStore(Store store);
