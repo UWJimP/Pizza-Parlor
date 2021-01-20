@@ -1,3 +1,4 @@
+using System;
 using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storing.Interfaces
@@ -6,10 +7,10 @@ namespace PizzaBox.Storing.Interfaces
     {
         public User GetUserByName(string name);
 
-        //TODO Get user's last order date
+        public DateTime GetUserLastOrderDate(User user);
 
-        //TODO: Check if the user ordered from a store within the last 24 hours
+        public bool UserCanOrderFromStore(User user, Store store);
 
-        //TODO: Check if the user has ordered within the last 2 hours.
+        public bool UserCanOrder(User user);
     }
 }

@@ -105,5 +105,20 @@ namespace PizzaBox.Storing.Repository
         {
             return _storeRepo.GetOrdersByDateRange(startDate, days);
         }
+
+        public DateTime GetUserLastOrderDate(User user)
+        {
+            return _userRepo.GetUserLastOrderDate(user);
+        }
+
+        public bool UserCanOrderFromStore(User user, Store store)
+        {
+            return _userRepo.UserCanOrderFromStore(user, store);
+        }
+
+        public bool UserCanOrder(User user)
+        {
+            return _userRepo.UserCanOrder(user);
+        }
     }
 }

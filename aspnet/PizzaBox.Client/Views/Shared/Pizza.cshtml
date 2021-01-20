@@ -10,7 +10,7 @@
             @foreach (var item in @Model.Pizza.Crusts)
             {
                 <div class="col-12">
-                    <input type="radio" asp-for="@Model.Pizza.Crust" value="@item.Name">
+                    <input type="radio" asp-for="@Model.Pizza.Crust" value="@item.Name" id="@item.Name" required>
                     <label for="@item.Name">@item</label>
                 </div>
             }
@@ -24,7 +24,7 @@
             @foreach (var item in @Model.Pizza.Sizes)
             {
                 <div class="col-12">
-                    <input type="radio" asp-for="@Model.Pizza.Size" value="@item.Name">
+                    <input type="radio" asp-for="@Model.Pizza.Size" value="@item.Name" id="@item.Name" required>
                     <label for="@item.Name">@item</label>
                 </div>
             }
@@ -46,5 +46,5 @@
             }
         </section>
     </div>
-    <button type="submit">Add Pizza</button>
+    <button type="submit" id="mySubmit" class="btn btn-primary">Add Pizza</button>
 </form>

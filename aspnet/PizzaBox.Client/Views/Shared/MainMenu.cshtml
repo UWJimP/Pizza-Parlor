@@ -12,9 +12,23 @@
 
 <div class="row">
     <form asp-controller="customer" asp-action="menu" method="GET">
-        <div class="col-12 m-2">
+        @{
+            if(@Model.CanOrder){
+                <div class="col-12 m-2">
+                    <button type="submit" class="btn btn-primary" name="button" value="order">Place Order</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-12 m-2">
+                    <button type="submit" class="btn btn-primary" name="button" value="order" disabled>Place Order</button>
+                    <small>You cannot order another pizza within a 2 hour period</small>
+                </div>
+            }
+        }
+@*         <div class="col-12 m-2">
             <button type="submit" class="btn btn-primary" name="button" value="order">Place Order</button>
-        </div>
+        </div> *@
         <div class="col-12 m-2">
             <button type="submit" class="btn btn-success" name="button" value="history">View History</button>
         </div>

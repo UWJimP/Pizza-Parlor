@@ -39,7 +39,9 @@ namespace PizzaBox.Client.Controllers
                 };
                 _context.Add<User>(user);
                 _context.SaveChanges();
+                //model.CanOrder = true;
             }
+            model.CanOrder = _context.UserCanOrder(user);
 
             return View("MainMenu", model);
         }
